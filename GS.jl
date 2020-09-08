@@ -9,7 +9,7 @@ function solvegs(n)
     x = [1-k/(n+1) for k = 1:n]
     Xk0 = zeros(1, n)
     Xk1 = zeros(1, n)
-    Dk1 = max(abs(Xk1 - Xk0))
+    Dk1 = maximum(abs.(Xk1 - Xk0))
     iters = 0
     TOL = 10^(-8)
     while Dk1 > TOL
@@ -22,7 +22,7 @@ function solvegs(n)
             Xk1[i] = (b[i] - dot(A[i,:],Xk0) + A[i,i])/A[i,i]
         end
         iters += 1
-        Dk1 = max(abs(Xk1 - Xk0))
+        Dk1 = maximum(abs.(Xk1 - Xk0))
     end
     Erro = 100*norm(Xk1 - x)/norm(x)
     return Erro

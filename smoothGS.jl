@@ -11,7 +11,7 @@ function smoothGS(n)
     x = [1-k/(n+1) for k = 1:n]
     Xk0 = zeros(1, n)
     Xk1 = zeros(1, n)
-    Dk1 = max(abs(Xk1 - Xk0))
+    Dk1 = maximum(abs.(Xk1 - Xk0))
     iters = 0
     TOL = 10^(-8)
     while Dk1 > TOL
@@ -26,7 +26,7 @@ function smoothGS(n)
             Xk1[k] = (1 - w)*Xk0[k] + w*(b[k] - dot(A[k,:],Xk1) + A[k,k]*Xk1[k])/A[k,k]
         end
         iters += 1
-        Dk1 = max(abs(Xk1 - Xk0))
+        Dk1 = maximum(abs.(Xk1 - Xk0))
     end
     Erro = 100*norm(Xk1 - x)/norm(x)
     return Erro
