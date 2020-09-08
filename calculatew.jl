@@ -20,5 +20,5 @@ function calculateG(n)
         i += 1
     end
     index = argmin(resultados)
-    return w[index], G
+    return w[index]
 end
