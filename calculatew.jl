@@ -1,5 +1,5 @@
 import LinearAlgebra
-function calculateG(n)
+function calculatew(n)
     d = repeat([2], n)
     dl = repeat([-1], n-1)
     resultados = Array{Float64}(undef, 20)
