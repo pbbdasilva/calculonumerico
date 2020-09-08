@@ -1,5 +1,5 @@
 using LinearAlgebra
-function solvegs(n, w)
+function solvegs(n)
     d = repeat([2], n)
     dl = repeat([-1], n-1)
     A = Tridiagonal(dl, d, dl)
