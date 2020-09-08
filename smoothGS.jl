@@ -1,5 +1,7 @@
 using LinearAlgebra
-function solvegs(n, w)
+include("createb.jl")
+function smoothGS(n)
+    w, G = calculateG(n)
     d = repeat([2], n)
     dl = repeat([-1], n-1)
     A = Tridiagonal(dl, d, dl)
@@ -17,9 +19,11 @@ function solvegs(n, w)
             println("fracassou")
             return nothing
         end
-        for i = 1:n
-            Xk0[i] = Xk1[i]
-            Xk1[i] = (b[i] - dot(A[i,:],Xk0) + A[i,i])/A[i,i]
+        for (k = 1:n)
+            # Atualiza o Xk0 e em seguida o Xk1 para cada 'Xi', com i de 1 a n.
+            Xk0[k] = Xk1[k]
+            # Utilizou-se a fórmula de 'sobre-relaxação' para atualizar Xk1.
+            Xk1[k] = (1 - w)*Xk0[k] + w*(b[k] - dot(A[k,:],Xk1) + A[k,k]*Xk1[k])/A[k,k]
         end
         iters += 1
         Dk1 = max(abs(Xk1 - Xk0))
