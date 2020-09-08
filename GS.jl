@@ -20,12 +20,10 @@ function solvegs(n, w)
         for i = 1:n
             Xk0[i] = Xk1[i]
             Xk1[i] = (b[i] - dot(A[i,:],Xk0) + A[i,i])/A[i,i]
-
+        end
+        K += 1
+        Dk1 = max(abs(Xk1 - Xk0))
     end
-    D = Diagonal(d)
-    L = LowerTriangular(A) - D
-    U = UpperTriangular(A) - D
-    M = (1/w)*D + L
-    N = ((1-w)/(w))*D - U
-
+    Erro = 100*norm(Xk1 - x)/norm(x)
+    return Erro
 end
